@@ -52,4 +52,13 @@ describe("handler", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.errorNumber).toBe(errorNumbers.NumberOfStreamsExceeded);
   });
+  it("returns error if user is streaming 1000+ videos", async () => {
+    const streamServiceMock = streamServiceMockBuilder
+      .returns(settings.streamsLimit + 1000)
+      .for(userId)
+      .build();
+    var res = await handler({ userId }, streamServiceMock);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.errorNumber).toBe(errorNumbers.NumberOfStreamsExceeded);
+  });
 });
