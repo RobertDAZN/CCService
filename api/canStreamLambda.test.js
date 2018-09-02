@@ -26,4 +26,17 @@ describe("handler", () => {
 
     sinon.assert.calledWith(canStreamMock, { userId: event.pathParameters.id });
   });
+  it("returns body if internal handler returned one", async () => {
+    const event = {
+      pathParameters: {
+        id: userId
+      }
+    };
+    const body = { whatever: "whatever" };
+    canStreamMock.returns({ body });
+
+    var res = await lambda.handler(event);
+
+    expect(res.body).toBe(body);
+  });
 });
