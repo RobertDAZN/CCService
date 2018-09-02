@@ -63,4 +63,21 @@ describe("handler", () => {
 
     expect(res.statusCode).toBe(200);
   });
+  it("returns correct headers", async () => {
+    const event = {
+      pathParameters: {
+        id: userId
+      }
+    };
+    canStreamMock.returns({});
+
+    var res = await lambda.handler(event);
+
+    expect(JSON.stringify(res.headers)).toBe(
+      JSON.stringify({
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true
+      })
+    );
+  });
 });
