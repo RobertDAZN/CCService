@@ -4,7 +4,7 @@ Stands for: Coding Challenge Service
 
 # DAZN's pick of implementation
 
-Andrea F. has chosen options 1-3 and 2-1 (green coloured path/boxes) from options graph at https://www.lucidchart.com/documents/view/12cdb8f0-ac59-4d1c-912a-ad9b9b8a1a48/0
+Andrea F. has chosen options 1-3 and 2-1 (green coloured path/boxes) from the options graph at https://www.lucidchart.com/documents/view/12cdb8f0-ac59-4d1c-912a-ad9b9b8a1a48/0
 
 The options chosen mean that:
 
@@ -41,6 +41,17 @@ As you can tell there is no database involved.
   - hexagonal: https://medium.freecodecamp.org/the-best-ways-to-test-your-serverless-applications-40b88d6ee31e
   - contract/pact: https://medium.com/nmc-techblog/scalable-integration-testing-for-microservices-deployments-e03e29dd1280
   - data/assumptions - no article
+
+# Scallability strategy
+
+- aws lambda scales by itself in general
+- we should set timeout for most lambda calls
+  - we should have timeout on aws lambda (something resonable in case lambda goes into some kind of infinite loop. Maybe equal to maximum time we are willing to wait for any lambda to finish, perhaps 5sec...)
+  - we should have internal timeouts calculated with each request (something like what is described here by Yan Cui: https://theburningmonk.com/2018/01/aws-lambda-use-the-invocation-context-to-better-handle-slow-http-responses/)
+  - this is necessary as user's experience is very important to us and users don't want to wait
+- we should experiment with memory setting for lambda as higher memory settings let lambda execute/start faster (and reduce cold start of lambda)
+- lambda cold start does not matter much in this case as this lambda is ment to run outside VPC and we are using NodeJS which has very short cold start with lambda
+- as this is quite important logic we may want to reserve enough lambda concurrent executions for this function but by doing this lambda could get throthled in some cases (this may be good or bad thing)
 
 # Installation
 
