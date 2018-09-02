@@ -8,11 +8,13 @@ export const handler = async (event, streamService) => {
   const streamServiceResponse = await streamService.getNumberOfVideosBeingWatched(
     event.userId
   );
-  if (
-    streamServiceResponse.errorNumber &&
-    streamServiceResponse.errorNumber === 401
-  ) {
-    return { statusCode: 401 };
+  if (streamServiceResponse.errorNumber) {
+    switch (streamServiceResponse.errorNumber) {
+      case 401:
+        return { statusCode: 401 };
+      default:
+        return { statusCode: 500 };
+    }
   }
   if (
     streamServiceResponse.numberOfVideosBeingWatched < settings.streamsLimit
