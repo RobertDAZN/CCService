@@ -17,14 +17,21 @@ export class StreamServiceMockBuilder {
     this.result = { errorNumber };
     return this;
   }
+  throws() {
+    this.isThrowing = true;
+    return this;
+  }
   build() {
     return {
-      getNumberOfVideosBeingWatched: this.sandbox.fake(
-        async user =>
-          user && user === this.user
-            ? this.result
-            : { numberOfVideosBeingWatched: 0 }
-      )
+      getNumberOfVideosBeingWatched: this.sandbox.fake(async user => {
+        if (user && user === this.user) {
+          if (this.isThrowing) {
+            throw new Error();
+          }
+          return this.result;
+        }
+        return { numberOfVideosBeingWatched: 0 };
+      })
     };
   }
 }

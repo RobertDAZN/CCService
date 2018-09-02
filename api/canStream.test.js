@@ -85,4 +85,12 @@ describe("handler", () => {
     var res = await handler({ userId }, streamServiceMock);
     expect(res.statusCode).toBe(500);
   });
+  it("returns error if streaming service throws", async () => {
+    const streamServiceMock = streamServiceMockBuilder
+      .for(userId)
+      .throws()
+      .build();
+    var res = await handler({ userId }, streamServiceMock);
+    expect(res.statusCode).toBe(500);
+  });
 });
