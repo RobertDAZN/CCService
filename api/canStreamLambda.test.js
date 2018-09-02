@@ -39,4 +39,16 @@ describe("handler", () => {
 
     expect(res.body).toBe(JSON.stringify(body));
   });
+  it("returns internal status code as http status code if internal handler returned one", async () => {
+    const event = {
+      pathParameters: {
+        id: userId
+      }
+    };
+    canStreamMock.returns({ statusCode: 303 });
+
+    var res = await lambda.handler(event);
+
+    expect(res.statusCode).toBe(303);
+  });
 });
