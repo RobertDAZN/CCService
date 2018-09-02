@@ -37,6 +37,6 @@ describe("handler", () => {
 
     var res = await lambda.handler(event);
 
-    expect(res.body).toBe(body);
+    expect(res.body).toBe(JSON.stringify(body));
   });
 });
