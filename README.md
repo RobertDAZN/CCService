@@ -34,6 +34,14 @@ As you can tell there is no database involved.
 
 - Ideally I could use OpenAPI (Swagger) documentation for this API as described here https://www.dropsource.com/blog/serverless-rest-api/ with some useage examples here https://github.com/deliveryhero/serverless-aws-documentation/blob/master/README.md (but I didn't)
 
+# Test strategy
+
+- I would consider mix of hexagonal, honeycomb and contract (or assumptions/data) testing strategies. We should get as much confidence as possible out of tests which can be run very quickly (in seconds) from the local developer's machine. Any other kind of tests should be designed to not fail for the same reasons other (quick) tests are failing. Thus they should be failing as rarelly as possible.
+  - honeycomb: https://labs.spotify.com/2018/01/11/testing-of-microservices/
+  - hexagonal: https://medium.freecodecamp.org/the-best-ways-to-test-your-serverless-applications-40b88d6ee31e
+  - contract/pact: https://medium.com/nmc-techblog/scalable-integration-testing-for-microservices-deployments-e03e29dd1280
+  - data/assumptions - no article
+
 # Installation
 
 - Install NodeJS 8 (it is curently the highest version aws lambda supports)
