@@ -22,4 +22,4 @@ functions:
       - http:
           path: can-stream/{id}
           method: get
-          
+          cors: true
