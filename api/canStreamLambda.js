@@ -1,3 +1,5 @@
+import { handler as canStream } from "./canStream";
+
 export const handler = async event => {
-  throw new Error("Not implemented");
+  await canStream({ userId: event.pathParameters.id });
 };
