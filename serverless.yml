@@ -1,0 +1,25 @@
+service: ccservice
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: eu-west-1
+
+functions:
+  hello:
+    handler: api/canStreamLambda.handler
+    description: tells if user can stream new video
+    events:
+      - http:
+          path: can-stream/{id}
+          method: get
+          
