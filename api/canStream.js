@@ -2,6 +2,9 @@ import { settings } from "../configuration/settings";
 import { errorNumbers } from "../configuration/errorNumbers";
 
 export const handler = async (event, streamService) => {
+  if (!event.userId) {
+    return { statusCode: 400 };
+  }
   const streamServiceResponse = await streamService.getNumberOfVideosBeingWatched(
     event.userId
   );
