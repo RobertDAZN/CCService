@@ -23,6 +23,7 @@ describe("handler", () => {
       .build();
     var res = await handler({ userId }, streamServiceMock);
     expect(res.statusCode).toBe(200);
+    expect(!res.body || !res.body.errorNumber).toBe(true);
   });
   it("returns success if user is streaming no videos", async () => {
     const streamServiceMock = streamServiceMockBuilder
@@ -31,6 +32,7 @@ describe("handler", () => {
       .build();
     var res = await handler({ userId }, streamServiceMock);
     expect(res.statusCode).toBe(200);
+    expect(!res.body || !res.body.errorNumber).toBe(true);
   });
   it("returns success if user is streaming -1 videos", async () => {
     const streamServiceMock = streamServiceMockBuilder
@@ -39,6 +41,7 @@ describe("handler", () => {
       .build();
     var res = await handler({ userId }, streamServiceMock);
     expect(res.statusCode).toBe(200);
+    expect(!res.body || !res.body.errorNumber).toBe(true);
   });
   it("returns error if user is already streaming maximum number of videos", async () => {
     const streamServiceMock = streamServiceMockBuilder
