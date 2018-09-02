@@ -22,7 +22,7 @@ As you can tell there is no database involved.
 - Service just tells if video can be streamed or not
   - Service does not store number of videos being streamed currently by the user
 
-# Simplifying decissions:
+# Simplifications:
 
 - I have used (to some extent) serverless template provided at https://serverless-stack.com
 - I have ignored that requests can come out of order (not because lambda is called asynchronously which it isn't but because of possible network slow downs or whatever else)
