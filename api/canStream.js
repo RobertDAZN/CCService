@@ -1,4 +1,5 @@
 import { settings } from "../configuration/settings";
+import { errorNumbers } from "../configuration/errorNumbers";
 
 export const handler = async (event, streamService) => {
   const streamServiceResponse = await streamService.getNumberOfVideosBeingWatched(
@@ -11,4 +12,8 @@ export const handler = async (event, streamService) => {
       statusCode: 200
     };
   }
+  return {
+    statusCode: 200,
+    body: { errorNumber: errorNumbers.NumberOfStreamsExceeded }
+  };
 };
