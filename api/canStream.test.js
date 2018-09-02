@@ -77,4 +77,12 @@ describe("handler", () => {
     var res = await handler({ userId }, streamServiceMock);
     expect(res.statusCode).toBe(401);
   });
+  it("returns error if streaming service did not respond in timely manner, is unavailable or returned error code we don't handle yet", async () => {
+    const streamServiceMock = streamServiceMockBuilder
+      .errors(500)
+      .for(userId)
+      .build();
+    var res = await handler({ userId }, streamServiceMock);
+    expect(res.statusCode).toBe(500);
+  });
 });
