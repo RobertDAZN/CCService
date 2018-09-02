@@ -66,4 +66,15 @@ describe("handler", () => {
     var res = await handler({}, streamServiceMock);
     expect(res.statusCode).toBe(400);
   });
+  // if user is not authorized by the streaming service it should be not authorized
+  // with this service too. But in theory it can happen and we can recognise and
+  // react on this error
+  it("returns error if user is not authorised with a streaming service", async () => {
+    const streamServiceMock = streamServiceMockBuilder
+      .errors(401)
+      .for(userId)
+      .build();
+    var res = await handler({ userId }, streamServiceMock);
+    expect(res.statusCode).toBe(401);
+  });
 });

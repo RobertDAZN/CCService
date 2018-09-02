@@ -12,6 +12,11 @@ export class StreamServiceMockBuilder {
     this.user = user;
     return this;
   }
+  errors(errorNumber) {
+    if (this.result) throw Error("result is already set");
+    this.result = { errorNumber };
+    return this;
+  }
   build() {
     return {
       getNumberOfVideosBeingWatched: this.sandbox.fake(
