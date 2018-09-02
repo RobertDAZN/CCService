@@ -61,4 +61,9 @@ describe("handler", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.errorNumber).toBe(errorNumbers.NumberOfStreamsExceeded);
   });
+  it("returns error if user id was not provided", async () => {
+    const streamServiceMock = streamServiceMockBuilder.build();
+    var res = await handler({}, streamServiceMock);
+    expect(res.statusCode).toBe(400);
+  });
 });
